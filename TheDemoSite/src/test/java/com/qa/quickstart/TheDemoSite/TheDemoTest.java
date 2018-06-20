@@ -21,7 +21,7 @@ WebElement newUserU;
 WebElement newUserP;
 ChromeDriver driver;
 ExtentReports newReport = new
-ExtentReports ("C:\\Users\\Admin\\Desktop\\newReport.html", true);
+ExtentReports ("C:\\Users\\Admin\\Desktop\\Automated Test\\Reports\\newReport.html", true);
 ExtentTest test;
 
 

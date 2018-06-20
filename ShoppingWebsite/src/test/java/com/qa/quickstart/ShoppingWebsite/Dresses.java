@@ -21,7 +21,7 @@ import com.relevantcodes.extentreports.LogStatus;
 public class Dresses {
 	ChromeDriver driver;
 	ExtentReports newReport = new
-	ExtentReports ("C:\\Users\\Admin\\Desktop\\ShoppingReport.html", true);
+	ExtentReports ("C:\\Users\\Admin\\Desktop\\Automated Test\\Reports\\ShoppingReport.html", true);
 	ExtentTest test;
 
 	

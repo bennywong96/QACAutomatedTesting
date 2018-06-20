@@ -11,21 +11,32 @@ public class Selectable {
         this.driver = driver;
 	}
 	
-	@FindBy(id = "draggableview") 
-	private WebElement draggable;
-	@FindBy(id = "droppableview") 
-	private WebElement droppable;
+	@FindBy(xpath = "//*[@id=\"selectable\"]/li[1]") 
+	private WebElement selectable;
+	@FindBy(xpath = "//*[@id=\"selectable\"]/li[3]")
+	private WebElement item3;
 
-public void dragIt() {
+public void selectAll() {
 	try {
 		Actions act1 = new Actions(driver);
-		act1.moveToElement(draggable).clickAndHold().moveToElement(droppable).release().perform();
+		act1.moveToElement(selectable).clickAndHold().moveByOffset(0, 250).release().perform();
 		Thread.sleep(1000);
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	
+}
+
+public void selectItem3() {
+	try {
+		Actions act2 = new Actions(driver);
+		act2.moveToElement(item3).click().perform();
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
+}
 
 }

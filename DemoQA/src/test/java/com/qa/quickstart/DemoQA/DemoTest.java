@@ -1,7 +1,9 @@
 package com.qa.quickstart.DemoQA;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,9 +21,11 @@ import com.relevantcodes.extentreports.LogStatus;
 public class DemoTest {
 	ChromeDriver driver;
 	ExtentReports newReport = new
-	ExtentReports ("C:\\Users\\Admin\\Desktop\\DemoTest.html", true);
+	ExtentReports ("C:\\Users\\Admin\\Desktop\\Automated Test\\Reports\\DemoTest.html", true);
 	ExtentTest test;
-	Home newHome = PageFactory.initElements(driver, Home.class);
+	Home newHome;
+	Selectable demoSelect;
+
 	
 	 @BeforeClass
 		public static void init() {
@@ -35,12 +39,16 @@ public class DemoTest {
 		driver.manage().window().maximize();
 		String url = "http://demoqa.com/";
 		driver.navigate().to(url);
+		newHome = PageFactory.initElements(driver, Home.class);
+		demoSelect = PageFactory.initElements(driver, Selectable.class);
+		
 	}
 	
 	@Test
 	public void droppableTest() {
 		test = newReport.startTest("Droppable");
 		newHome.draggablePage();
+		test.log(LogStatus.INFO, "Homepage executing method to go to draggable page");
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -48,7 +56,9 @@ public class DemoTest {
 			e.printStackTrace();
 		}
 		Droppable demoDrop = PageFactory.initElements(driver, Droppable.class);
+		test.log(LogStatus.INFO, "Page Factory init elements");
 		demoDrop.dragIt();
+		test.log(LogStatus.INFO, "DragIt method from Droppable.clas");
 		try {
 			String comparison1 = driver.findElement(By.id("droppableview")).getText();
 			assertEquals("Dropped!", comparison1);
@@ -65,7 +75,8 @@ public class DemoTest {
 	}
 	
 	@Test
-	public void selectableTest() {
+	public void selectableSelectAll() {
+		//List<String> list = new ArrayList<String>();
 		test = newReport.startTest("Selectable");
 		newHome.selectablePage();
 		try {
@@ -74,10 +85,57 @@ public class DemoTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+		demoSelect.selectAll();
+		WebElement testing = driver.findElement(By.id("selectable"));
+		List<WebElement> comparison1 = testing.findElements(By.cssSelector("#selectable li"));
+		int counter1 = 0;
+			for (WebElement match:comparison1) {
+				if (match.getAttribute("class").contains("ui-selected")) {
+					counter1++;
+				}
+				else {
+					break;
+				}
+				 //list.add(match.getAttribute("class"));
+			}
+			
+			
+			try {assertTrue(counter1==7);
+				test.log(LogStatus.PASS, "All the items were selected");
+			}
+			catch (AssertionError e) {
+				test.log(LogStatus.FAIL, "Not all items were selected");
+		    	fail();
+			}
+			finally {
+			newReport.endTest(test);
+			}
+	}
+	
+	@Test
+	public void selectableItem3() {
+		test = newReport.startTest("Selectable");
+		newHome.selectablePage();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		demoSelect.selectItem3();
+		//list.get[2]
+		WebElement testing = driver.findElement(By.id("selectable"));
+		List<WebElement> comparison1 = testing.findElements(By.cssSelector("#selectable li"));
+			try {assertEquals("ui-widget-content ui-corner-left ui-selectee ui-selected",comparison1.get(2).getAttribute("class"));
+				test.log(LogStatus.PASS, "Item 3 is selected :)");
+			}
+			catch (AssertionError e) {
+				test.log(LogStatus.FAIL, "Item 3 isn't selected :(");
+		    	fail();
+			}
+			finally {
+			newReport.endTest(test);
+			}
 	}
 	
 	

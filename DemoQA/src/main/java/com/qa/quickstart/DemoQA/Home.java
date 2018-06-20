@@ -11,9 +11,9 @@ public class Home {
         this.driver = driver;
 	}
 	
-	@FindBy(xpath = "//*[@id=\\\"menu-item-141\\\"]/a") 
+	@FindBy(xpath = "//*[@id=\"menu-item-141\"]/a") 
 	private WebElement droppable;
-	@FindBy(xpath = "//*[@id=\\\"menu-item-142\\\"]/a") 
+	@FindBy(xpath = "//*[@id=\"menu-item-142\"]/a") 
 	private WebElement selectable;
 
 	public void draggablePage() {
