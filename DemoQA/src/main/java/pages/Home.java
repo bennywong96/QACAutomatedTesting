@@ -21,6 +21,8 @@ public class Home {
 	private WebElement autoComplete;
 	@FindBy(xpath = "//*[@id=\"menu-item-146\"]/a")
 	private WebElement datePicker;
+	@FindBy(xpath = "//*[@id=\"menu-item-147\"]/a")
+	private WebElement menu;
 	
 	
 
@@ -42,5 +44,9 @@ public class Home {
 	
 	public void datePicker() {
 		datePicker.click();
+	}
+	
+	public void menu() {
+		menu.click();
 	}
 }
