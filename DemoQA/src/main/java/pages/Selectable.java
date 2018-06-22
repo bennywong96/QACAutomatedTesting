@@ -17,21 +17,21 @@ public class Selectable {
 	private WebElement item3;
 
 public void selectAll() {
-	try {
 		Actions act1 = new Actions(driver);
 		act1.moveToElement(selectable).clickAndHold().moveByOffset(0, 250).release().perform();
-		Thread.sleep(1000);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		sleep1Second();
 	
 }
 
 public void selectItem3() {
-	try {
 		Actions act2 = new Actions(driver);
 		act2.moveToElement(item3).click().perform();
+		sleep1Second();
+	
+}
+
+public void sleep1Second(){
+	try {
 		Thread.sleep(1000);
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block

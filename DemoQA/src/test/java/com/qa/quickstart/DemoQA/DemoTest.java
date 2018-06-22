@@ -22,27 +22,25 @@ import pages.*;
 
 public class DemoTest {
 	ChromeDriver driver;
-	ExtentReports newReport = new
-	ExtentReports ("C:\\Users\\Admin\\Desktop\\Automated Test\\Reports\\DemoTest.html", false);
-	ExtentTest test;
-	ExtentTest test1;
-	ExtentTest test2;
-	ExtentTest test3;
-	ExtentTest test4;
-	ExtentTest test5;
-	ExtentTest test6;
+	static ExtentReports newReport;
+	ExtentTest test;  ExtentTest test1; ExtentTest test2;
+	ExtentTest test3; ExtentTest test4; ExtentTest test5;
+	ExtentTest test6; ExtentTest test7; ExtentTest test8;
+	ExtentTest test9;
 	Home newHome;
 	Selectable demoSelect;
 
 	
 	 @BeforeClass
 		public static void init() {
-			System.setProperty("webdriver.chrome.driver", "C:\\Users\\Dale\\Desktop\\chromedriver.exe");
+		 System.setProperty("webdriver.chrome.driver","C:\\Users\\Admin\\Desktop\\chromedriver.exe");
+		 newReport = new
+					ExtentReports ("C:\\Users\\Admin\\Desktop\\Automated Test\\Reports\\DemoTest.html", true);
 	 }
 	
 	@Before
 	public void before1() {
-		System.setProperty("webdriver.chrome.driver","C:\\Users\\Admin\\Desktop\\chromedriver.exe");
+		
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		String url = "http://demoqa.com/";
@@ -104,7 +102,7 @@ public class DemoTest {
 			
 			try {assertTrue(counter1==7);
 			test1.log(LogStatus.INFO, "when counter equals 7 it is true");
-				test.log(LogStatus.PASS, "All the items were selected");
+			test1.log(LogStatus.PASS, "All the items were selected");
 			}
 			catch (AssertionError e) {
 				test1.log(LogStatus.INFO, "counter didnt reach 7 so it is false");
@@ -130,7 +128,7 @@ public class DemoTest {
 		test2.log(LogStatus.INFO, "get all the selectables within a grid and add it to array list");
 		test2.log(LogStatus.INFO, "AssertEquals to check if item 3 is selected");
 			try {assertEquals("ui-widget-content ui-corner-left ui-selectee ui-selected",comparison1.get(2).getAttribute("class"));
-				test.log(LogStatus.PASS, "Item 3 is selected :)");
+				test2.log(LogStatus.PASS, "Item 3 is selected :)");
 			}
 			catch (AssertionError e) {
 				test2.log(LogStatus.FAIL, "Item 3 isn't selected :(");
@@ -248,6 +246,85 @@ public class DemoTest {
 			newReport.endTest(test6);
 		}
 	}
+	
+	@Test
+	public void sliderTest() {
+		test7 = newReport.startTest("Slider");
+		newHome.slider();
+		test7.log(LogStatus.INFO, "Go to slider page");
+		sleep1Second();
+		Slider demoSlider = PageFactory.initElements(driver, Slider.class);
+		demoSlider.slideIt();
+		test7.log(LogStatus.INFO, "run sliderIT from slider.java");
+		WebElement numberBox = driver.findElement(By.id("amount1"));
+		String value = numberBox.getAttribute("value");
+		System.out.println(value);
+		test7.log(LogStatus.INFO, "get the value that is displayed on the page, comapare it to what it should display");
+		try {assertEquals("6",value);
+			test7.log(LogStatus.PASS, "The number equals 6!");
+		}
+		catch (AssertionError f) {
+			test7.log(LogStatus.FAIL, "Number does not equal 6");
+			fail();
+		}
+		finally {
+			newReport.endTest(test7);
+		}
+	}
+	
+	@Test
+	public void tabsTest() {
+		test8 = newReport.startTest("Tabs");
+		newHome.tabs();
+		test8.log(LogStatus.INFO, "Go to tabs page");
+		sleep1Second();
+		Tabs demoTabs = PageFactory.initElements(driver, Tabs.class);
+		demoTabs.selectingTabs();
+		test8.log(LogStatus.INFO, "run selectingTabs from tabs.java");
+		WebElement tab2 = driver.findElement(By.xpath("//*[@id=\"tabs222\"]/ul/li[2]"));
+		String tab2Class = tab2.getAttribute("class");
+		System.out.println(tab2Class);
+		test8.log(LogStatus.INFO, "assign tab2 as webelement via xpath, then get attribute and compare between active state");
+		try{
+			assertEquals("ui-state-default ui-corner-top ui-state-hover ui-state-focus ui-tabs-active ui-state-active", tab2Class);
+			//could do assertTrue and do .contains(ui-state-active)
+			test8.log(LogStatus.PASS, "Tab 2 was selected");
+		}
+		catch (AssertionError w) {
+			test8.log(LogStatus.FAIL, "Tab 2 is not selected");
+			fail();
+		}
+		finally {
+			newReport.endTest(test8);
+		}
+	}
+	
+	@Test
+	public void toolsTest() {
+		test9 = newReport.startTest("Tooltip");
+		newHome.tools();
+		test9.log(LogStatus.INFO, "Go to tabs page");
+		sleep1Second();
+		Tools demoTabs = PageFactory.initElements(driver, Tools.class);
+		demoTabs.toolTip();
+		test9.log(LogStatus.INFO, "run selectingTabs from tabs.java");
+		WebElement tab2 = driver.findElement(By.className("ui-tooltip"));
+		System.out.println(tab2);
+		test9.log(LogStatus.INFO, "assign tab2 as the pop up tool tip and see if it is displayed");
+		try{
+			assertTrue("Tooltip is not Displayed",tab2.isDisplayed());
+		
+			test9.log(LogStatus.PASS, "Tooltip displayed");
+		}
+		catch (AssertionError w) {
+			test9.log(LogStatus.FAIL, "Tooltip did not show");
+			fail();
+		}
+		finally {
+			newReport.endTest(test9);
+		}
+	}
+	
 	
 	
 	

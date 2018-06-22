@@ -23,9 +23,13 @@ public class Home {
 	private WebElement datePicker;
 	@FindBy(xpath = "//*[@id=\"menu-item-147\"]/a")
 	private WebElement menu;
+	@FindBy(xpath = "//*[@id=\"menu-item-97\"]/a")
+	private WebElement slider;
+	@FindBy(xpath = "//*[@id=\"menu-item-98\"]/a")
+	private WebElement tabs;
+	@FindBy(xpath = "//*[@id=\"menu-item-99\"]/a")
+	private WebElement tooltip;
 	
-	
-
 	public void draggablePage() {
 		droppable.click();
 	}
@@ -48,5 +52,16 @@ public class Home {
 	
 	public void menu() {
 		menu.click();
+	}
+	
+	public void slider() {
+		slider.click();
+	}
+	
+	public void tabs() {
+		tabs.click();
+	}
+	public void tools() {
+		tooltip.click();
 	}
 }

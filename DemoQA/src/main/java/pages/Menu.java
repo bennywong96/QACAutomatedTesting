@@ -23,8 +23,6 @@ public class Menu {
 		act1.pause(1000).moveByOffset(0, 120).pause(1000).perform();
 		act1.moveByOffset(0, -30).pause(1000).moveByOffset(0,-30).pause(2000).perform();
 		
-		//check if background colour = yellow
-		
 	}
 	
 
